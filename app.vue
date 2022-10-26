@@ -4,3 +4,7 @@
   </div>
   <NuxtPage />
 </template>
+
+<style>
+@import "./assets/css/app.css";
+</style>
