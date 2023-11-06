@@ -1,21 +1,20 @@
-export async function request(path, method, data, header, attr) {
+export async function request(path, _options = {}) {
   const { backendUrl } = useRuntimeConfig().public;
-  let config = {
-    method: method,
-    body: data,
+  let options = {
+    method: _options?.method || 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + attr?.token || sessionToken?.value,
     },
-    data: data,
   };
-  if (header) {
-    config.headers = { ...config.headers, ...header };
+  if (_options?.header) {
+    options.headers = { ...options.headers, ..._options.headers };
   }
-  if (method === 'GET') delete config.body;
-  if (attr?.noCors) config.mode = 'no-cors';
+  options = { ...options, ..._options };
+  if (options.method === 'GET') delete options?.body;
+  if (options?.noCors) options.mode = 'no-cors';
+  if (options?.noHeaders) delete options.headers;
   if (!path.includes('http')) path = backendUrl + '/' + path;
-  return await useFetch(path, config);
+  return await useFetch(path, options);
 }
 
 export function fetchWrapper(data) {

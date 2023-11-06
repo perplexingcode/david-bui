@@ -6,69 +6,103 @@ function rename(name) {
   return name.includes('*') ? name.replace('*', '') : dbPrefix + '_' + name;
 }
 
+function validate(data, msg) {
+  if (!data) {
+    console.error(msg);
+    return null;
+  }
+  return data;
+}
+
+function parse(response) {
+  return response?.data?._rawValue;
+}
+
+export const removeState = function (obj) {
+  delete obj.state;
+  if (Array.isArray(obj)) {
+    for (const item of obj) {
+      delete item.state;
+    }
+  }
+  return obj;
+};
+
 export const upsert = async function (table, data) {
   table = rename(table);
   data = deepClone(data);
-  delete data.state;
-  let response = await request(
-    '/upsert/' + table,
-    'POST',
-    JSON.stringify(data),
-  );
-  return response;
+  removeState(data);
+  const options = { method: 'POST', body: JSON.stringify(data) };
+  await request('/upsert/' + table, options);
 };
 
 export const getAll = async function (table, projection) {
   table = rename(table);
-  let response = await request(
-    'all' + '/' + table + (projection ? '/' + projection : ''),
-    'GET',
-  );
-  return response;
+  const path = 'all' + '/' + table + (projection ? '/' + projection : '');
+  const response = await request(path);
+  const data = parse(response);
+  return validate(data, 'getAll: no data found for table ' + table);
 };
 
 export const sample = async function (table, limit) {
   table = rename(table);
-  let response = await request('sample' + '/' + table + '/' + limit, 'GET');
-  return response;
+  const response = await request('sample' + '/' + table + '/' + limit);
+  const data = parse(response);
+  return validate(data, 'sample: no data found for table ' + table);
 };
 
 export const query = async function (table, queryName, queryValue, projection) {
   table = rename(table);
+  let path;
+  let response;
+  let data;
   if (typeof queryValue === 'object') {
-    let response = await request(
+    path =
       'query' +
-        '/' +
-        table +
-        '/' +
-        queryName +
-        (projection ? '/' + projection : ''),
-      'POST',
-      JSON.stringify(queryValue),
-    );
-    return response;
-  }
-  let response = await request(
-    'query' +
       '/' +
       table +
       '/' +
       queryName +
-      '/' +
-      queryValue +
-      (projection ? '/' + projection : ''),
-    'GET',
-  );
-
-  return response;
+      (projection ? '/' + projection : '');
+    const options = { method: 'POST', body: JSON.stringify(queryValue) };
+    response = await request(path, options);
+    data = parse(response);
+    return validate(data, 'query: no data found for query ' + path);
+  }
+  path =
+    'query' +
+    '/' +
+    table +
+    '/' +
+    queryName +
+    '/' +
+    queryValue +
+    (projection ? '/' + projection : '');
+  response = await request(path);
+  data = parse(response);
+  return validate(data, 'query: no data found for query ' + path);
 };
 
 export const getById = async function (table, id, projection) {
   table = rename(table);
-  return await request(
-    'id' + '/' + table + '/' + id + (projection ? '/' + projection : ''),
-    'GET',
-  );
+  const path =
+    'id' + '/' + table + '/' + id + (projection ? '/' + projection : '');
+  const response = await request(path);
+  const data = parse(response);
+  return validate(data, 'getById: no data found for id ' + id);
+};
+
+export const getByIdValue = async function (table, id, attribute) {
+  table = rename(table);
+  attribute = attribute || 'value';
+  const path = 'id' + '/' + table + '/' + id;
+  const response = await request(path);
+  const data = parse(response)?.[attribute];
+  return validate(data, 'getByIdValue: no data found for id ' + id);
+};
+
+export const cache = async function (id, value) {
+  await upsert('cache', { body: { id, value } });
 };
 
 export const dbDelete = async function (table, list) {
@@ -77,5 +111,5 @@ export const dbDelete = async function (table, list) {
   if (!Array.isArray(list)) {
     list = [list];
   }
-  request('delete' + '/' + table, 'post', list);
+  await request('delete' + '/' + table, { method: 'POST', body: list });
 };

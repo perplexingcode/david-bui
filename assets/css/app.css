@@ -1,48 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @font-face {
-  font-family: "Bower Bold";
-  src: url("../fonts/mckinsey/Bower-Bold.woff2") format("woff2");
+  font-family: 'Bower Bold';
+  src: url('../fonts/mckinsey/Bower-Bold.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "McKinsey Sans";
-  src: url("../fonts/mckinsey/McKinseySans-Regular.woff2") format("woff2");
+  font-family: 'McKinsey Sans';
+  src: url('../fonts/mckinsey/McKinseySans-Regular.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "McKinsey Sans";
-  src: url("../fonts/mckinsey/McKinseySans-Italic.woff2") format("woff2");
+  font-family: 'McKinsey Sans';
+  src: url('../fonts/mckinsey/McKinseySans-Italic.woff2') format('woff2');
   font-weight: normal;
   font-style: italic;
 }
 
 @font-face {
-  font-family: "McKinsey Sans";
-  src: url("../fonts/mckinsey/McKinseySans-Light.woff2") format("woff2");
+  font-family: 'McKinsey Sans';
+  src: url('../fonts/mckinsey/McKinseySans-Light.woff2') format('woff2');
   font-weight: light;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "McKinsey Sans";
-  src: url("../fonts/mckinsey/McKinseySans-LightItalic.woff2") format("woff2");
+  font-family: 'McKinsey Sans';
+  src: url('../fonts/mckinsey/McKinseySans-LightItalic.woff2') format('woff2');
   font-weight: light;
   font-style: italic;
 }
 
 @font-face {
-  font-family: "McKinsey Sans";
-  src: url("../fonts/mckinsey/McKinseySans-Medium.woff2") format("woff2");
+  font-family: 'McKinsey Sans';
+  src: url('../fonts/mckinsey/McKinseySans-Medium.woff2') format('woff2');
   font-weight: 500;
   font-style: normal;
 }
 
 @font-face {
-  font-family: "McKinsey Sans";
-  src: url("../fonts/mckinsey/McKinseySans-MediumItalic.woff2") format("woff2");
+  font-family: 'McKinsey Sans';
+  src: url('../fonts/mckinsey/McKinseySans-MediumItalic.woff2') format('woff2');
   font-weight: 500;
   font-style: italic;
 }
@@ -52,18 +56,13 @@
 }
 
 p {
-  font-family: "McKinsey Sans";
+  font-family: 'McKinsey Sans';
   font-size: 1.25rem;
-  font-weight:light;
+  font-weight: light;
   color: #333;
 }
 
-.section-md {
-  background-color: #bcbcbc;
-  color: #e7e7e7;
-  display: block;
-  height: 18vh;
-  font-size: 6rem;
-  text-align: center;
-  font-family: "Bower Bold";
+h1 {
+  font-family: 'Bower Bold';
+  -webkit-font-smoothing: antialiased;
 }
