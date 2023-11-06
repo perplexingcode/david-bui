@@ -20,9 +20,7 @@ import { Transition } from 'nuxt/dist/app/compat/capi';
           v-show="state.liebesfreud"
         >
           <div
-            style="
-              background: url('_nuxt/assets/img/background/Gucci floral pattern green.jpg');
-            "
+            style="background: url('Gucci floral pattern green.jpg')"
             class="strip relative text-[#0f766e] h-[18vh] text-[12rem] text-center font-bold leading-none"
           >
             <h1
