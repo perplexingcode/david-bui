@@ -25,6 +25,11 @@ onMounted(async () => {
   watch(text, async () => {
     await updateText();
   });
+  // Set interval to check for changes
+  setInterval(async () => {
+    const cachedText = await cache.get('clipboard');
+    if (cachedText !== text.value) text.value = cachedText;
+  }, 1000);
 });
 </script>
 <style></style>
