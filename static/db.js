@@ -98,13 +98,23 @@ export const getByIdValue = async function (table, id, attribute) {
   const path = 'id' + '/' + table + '/' + id;
   const response = await request(path);
   const data = parse(response)?.[attribute];
+  console.log(data);
   return validate(data, 'getByIdValue: no data found for id ' + id);
 };
 
-export const cache = async function (id, value) {
-  await upsert('cache', { body: { id, value } });
-};
+async function setCache(id, value) {
+  if (value._rawValue !== undefined) value = value._rawValue;
+  await upsert('cache', { id, value });
+}
 
+async function getCache(id) {
+  return await getByIdValue('cache', id);
+}
+
+export const cache = {
+  set: setCache,
+  get: getCache,
+};
 export const dbDelete = async function (table, list) {
   table = rename(table);
   // if list is not an array but a single id, convert it to an array

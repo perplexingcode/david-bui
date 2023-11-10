@@ -21,7 +21,7 @@ import { Transition } from 'nuxt/dist/app/compat/capi';
         >
           <div
             style="background: url('Gucci floral pattern green.jpg')"
-            class="strip relative text-[#0f766e] h-[18vh] text-[12rem] text-center font-bold leading-none"
+            class="strip hidden relative text-[#0f766e] h-[18vh] text-[12rem] text-center font-bold leading-none"
           >
             <h1
               class="title absolute bottom-[-2.25rem] left-1/2 -translate-x-1/2 text"
@@ -43,6 +43,19 @@ import { Transition } from 'nuxt/dist/app/compat/capi';
 <script setup>
 const state = inject('state');
 const events = inject('events');
+
+if (process.client) {
+  document.addEventListener('DOMContentLoaded', function () {
+    var image = new Image();
+    image.src = '~/public/Gucci floral pattern green.jpg';
+
+    image.onload = function () {
+      var element = document.querySelector('.strip');
+      element.style.backgroundImage = "url('" + image.src + "')";
+      element.classList.remove('hidden');
+    };
+  });
+}
 </script>
 <style>
 .v-enter-active,

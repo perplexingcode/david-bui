@@ -28,6 +28,7 @@ export default defineNuxtConfig({
       rootDir: process.env.ROOT_DIR,
       dbPrefix: process.env.DB_PREFIX,
       backendUrl: process.env.BACKEND_URL,
+      token: process.env.TOKEN,
     },
   },
 });

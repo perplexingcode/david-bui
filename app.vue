@@ -20,6 +20,7 @@ if (process.client) {
 }
 
 onMounted(async () => {
+  if (!urlAlias && window.location.search !== '') window.location = '/';
   url.value = await getByIdValue('*url', urlAlias, 'url');
   if (url.value && redirect.value) window.location = url.value;
 });

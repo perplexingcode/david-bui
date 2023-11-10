@@ -1,9 +1,10 @@
 export async function request(path, _options = {}) {
-  const { backendUrl } = useRuntimeConfig().public;
+  const { backendUrl, token } = useRuntimeConfig().public;
   let options = {
     method: _options?.method || 'GET',
     headers: {
       'Content-Type': 'application/json',
+      Authorization: token,
     },
   };
   if (_options?.header) {
