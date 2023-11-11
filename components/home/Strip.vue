@@ -21,7 +21,7 @@ import { Transition } from 'nuxt/dist/app/compat/capi';
         >
           <div
             style="background: url('Gucci floral pattern green.jpg')"
-            class="strip hidden relative text-[#0f766e] h-[18vh] text-[12rem] text-center font-bold leading-none"
+            class="strip relative text-[#0f766e] h-[18vh] text-[12rem] text-center font-bold leading-none"
           >
             <h1
               class="title absolute bottom-[-2.25rem] left-1/2 -translate-x-1/2 text"
