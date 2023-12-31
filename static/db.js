@@ -1,5 +1,6 @@
 import { request } from './request.js';
 import { deepClone } from './utils.js';
+import moment from 'moment';
 
 function rename(name) {
   const { dbPrefix } = useRuntimeConfig().public;
@@ -98,13 +99,13 @@ export const getByIdValue = async function (table, id, attribute) {
   const path = 'id' + '/' + table + '/' + id;
   const response = await request(path);
   const data = parse(response)?.[attribute];
-  console.log(data);
   return validate(data, 'getByIdValue: no data found for id ' + id);
 };
 
 async function setCache(id, value) {
   if (value._rawValue !== undefined) value = value._rawValue;
-  await upsert('cache', { id, value });
+  const timestamp = moment().unix();
+  await upsert('cache', { id, value, timestamp });
 }
 
 async function getCache(id) {

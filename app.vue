@@ -8,6 +8,10 @@
 </template>
 <script setup>
 import { getByIdValue } from '~/static/db';
+import { v4 } from 'uuid';
+
+const sessionId = v4();
+provide('sessionId', sessionId);
 
 const redirect = ref(true);
 let urlAlias;
