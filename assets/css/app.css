@@ -55,6 +55,15 @@
   box-sizing: border-box;
 }
 
+// Highlight text selection
+::-moz-selection {
+  background: #dcddde;
+}
+
+::selection {
+  background: #dcddde;
+}
+
 p {
   font-family: 'McKinsey Sans';
   font-size: 1.25rem;
