@@ -55,7 +55,7 @@
   box-sizing: border-box;
 }
 
-// Highlight text selection
+/* Highlight text selection */
 ::-moz-selection {
   background: #dcddde;
 }
