@@ -1,10 +1,10 @@
 <template>
-  <div class="h-screen w-screen bg-indigo-800">
+  <div class="h-screen w-screen max-w-screen bg-indigo-800">
     <div
-      class="h-screen w-screen flex flex-col justify-center items-center mb-10"
+      class="h-screen w-full flex flex-col justify-center items-center mb-10 h-fit"
     >
       <span class="text-2xl font-bold text-white mb-6">Clipboard</span>
-      <div class="flex items-center gap-3 mb-3">
+      <div class="flex items-center gap-3 mb-3 px-3 md:w-fit w-full">
         <label class="text-xl text-white">Link</label>
         <input
           v-model="link"
@@ -14,11 +14,13 @@
           <SvgOpenLink @click="gotoLink" class="w-6 h-6 cursor-pointer" />
         </a>
       </div>
-      <textarea
-        class="w-1/2 h-1/2 border-2 border-gray-300 rounded-md p-2"
-        resizable
-        v-model="text"
-      ></textarea>
+      <div class="w-full h-fit flex justify-center px-5 mb-10">
+        <textarea
+          class="md:w-1/2 w-full md:h-[60dvh] h-[68dvh] border-2 border-gray-300 rounded-md p-2"
+          resizable
+          v-model="text"
+        ></textarea>
+      </div>
     </div>
   </div>
 </template>
